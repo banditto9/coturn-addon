@@ -1,0 +1,58 @@
+name: "Coturn TURN Server"
+description: "A TURN/STUN server for NAT traversal, useful for WebRTC applications like Home Assistant's WebRTC camera streams."
+version: "1.0.0"
+slug: "coturn"
+init: false
+homeassistant_api: false
+auth_api: false
+hassio_api: false
+
+url: "https://github.com/coturn/coturn"
+
+host_network: true
+
+map:
+  - type: share
+    read_only: false
+  - type: ssl
+    read_only: true
+
+arch:
+  - aarch64
+  - amd64
+
+options:
+  listening_port: 3478
+  tls_port: 5349
+  min_port: 49152
+  max_port: 49300
+  realm: "homeassistant.local"
+  username: "homeassistant"
+  password: "changeme"
+  static_auth_secret: ""
+  external_ip: ""
+  detect_external_ip: true
+  log_file: "stdout"
+  no_tls: false
+  no_dtls: false
+  certfile: "coturn/fullchain.pem"
+  keyfile: "coturn/privkey.pem"
+  cli_disabled: true
+
+schema:
+  listening_port: int
+  tls_port: int
+  min_port: int
+  max_port: int
+  realm: str
+  username: str
+  password: str
+  static_auth_secret: str?
+  external_ip: str?
+  detect_external_ip: bool
+  log_file: str
+  no_tls: bool
+  no_dtls: bool
+  certfile: str
+  keyfile: str
+  cli_disabled: bool
