@@ -19,5 +19,6 @@ https://github.com/banditto9/coturn-addon
 ## Links
 - Project homepage: https://coturn.github.io/
 - Repository: https://github.com/coturn/coturn/
+- Coturn TURN server full config files with comments: https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf
 - `turnutils_uclient` for testing: https://github.com/coturn/coturn/wiki/turnutils_uclient
 - Trickle ICE: https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
