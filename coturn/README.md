@@ -4,10 +4,9 @@ A Home Assistant add-on wrapping [coturn](https://github.com/coturn/coturn), TUR
 
 ## What is TURN/STUN?
 
-TURN (Traversal Using Relays around NAT) and STUN (Session Traversal Utilities for NAT) are protocols used by WebRTC to establish peer-to-peer connections through firewalls and NAT routers. STUN/TURN may be useful for SIP VOIP calls as well and STUN can be used in Asterisk setup as well.
+TURN (Traversal Using Relays around NAT) and STUN (Session Traversal Utilities for NAT) are protocols used by WebRTC to establish peer-to-peer connections through firewalls and NAT routers. STUN/TURN may be helpful for SIP VOIP calls and used in Asterisk setup as well.
 
-STUN is a very simple protocol:
-
+STUN is a simple protocol:
 1) Client sends a binding request to your server
 2) Server replies with the client's public IP and port
 3) No authentication, no encryption, no TLS needed
@@ -17,8 +16,6 @@ So for STUN only you need just one port open: 3478 UDP
 The only time you need TLS/SSL for STUN is if you use stuns: (STUN over TLS) — but virtually nobody uses that. Plain stun: on UDP 3478 is the universal standard and works everywhere including from HTTPS pages, because STUN is not HTTP traffic so browser mixed-content rules don't apply to it.
 
 Summary of what needs SSL and what doesn't:
-
-
 | Protocol | Port | SSL required or not |
 |---|---|---|
 |stun:|3478 UDP|❌|
@@ -90,7 +87,7 @@ webrtc:
 - If exposing to the internet, consider enabling TLS (`no_tls: false`) with a valid certificate.
 - The `realm` should match your domain for TLS setups.
 
-## Certificate Setup
+## Certificate Setup (for TLS):
 
 This add-on reads TLS certificates from `/ssl/coturn/` on your HA host. You are responsible for keeping this folder populated with valid certificates.
 
