@@ -127,3 +127,15 @@ action:
 - Change the default password in the add-on config from changeme to something strong
 - Set your realm to your actual domain name (e.g. turn.yourdomain.com) and point an A record at `external IP`
 - For proper external testing, use the Trickle ICE page with `turn:external IP (or internal IP):3478` or `turn:yourdomain.com:3478` — you should see relay candidates coming from your public IP (this is for turn, for turn(s) which stands for secure use port :5349)
+
+##  Testing using the Trickle ICE tool:
+
+Go to https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+Remove the default Google STUN server
+Add your server:
+
+URI: turn:192.168.1.2:3478 (your local HA IP or domainname for coturn)
+Username: homeassistant
+Password: changeme (your password)
+
+Click Gather candidates — you should see srflx and relay candidates appear, which confirms TURN is working
