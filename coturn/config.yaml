@@ -15,12 +15,8 @@ url: "https://github.com/coturn/coturn"
 host_network: true
 
 map:
-  - type: share
-    read_only: false
-  - type: homeassistant_config
-    read_only: false
-  - type: ssl
-    read_only: true
+  - homeassistant_config:rw
+  - ssl:ro
 
 arch:
   - aarch64
