@@ -21,7 +21,7 @@ Summary of what needs SSL and what doesn't:
 |stun:|3478 UDP|❌|
 |turn:|3478 TCP/UDP|❌ (unencrypted)|
 |turns:|5349 TCP|✅|
-|stuns:|5349|✅ (rare)|
+|stuns:|5349 TCP/TLS|✅ (rare)|
 
 **Common use cases in Home Assistant:**
 - WebRTC camera streams (go2rtc, Frigate, HA WebRTC integration)
