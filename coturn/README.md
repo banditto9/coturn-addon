@@ -1,10 +1,30 @@
 # Coturn TURN Server — Home Assistant Add-on
 
-A Home Assistant add-on wrapping [coturn](https://github.com/coturn/coturn), a production-grade TURN/STUN server for NAT traversal.
+A Home Assistant add-on wrapping [coturn](https://github.com/coturn/coturn), TURN/STUN server for NAT traversal.
 
 ## What is TURN/STUN?
 
-TURN (Traversal Using Relays around NAT) and STUN (Session Traversal Utilities for NAT) are protocols used by WebRTC to establish peer-to-peer connections through firewalls and NAT routers.
+TURN (Traversal Using Relays around NAT) and STUN (Session Traversal Utilities for NAT) are protocols used by WebRTC to establish peer-to-peer connections through firewalls and NAT routers. STUN/TURN may be useful for SIP VOIP calls as well and STUN can be used in Asterisk setup as well.
+
+STUN is a very simple protocol:
+
+1) Client sends a binding request to your server
+2) Server replies with the client's public IP and port
+3) No authentication, no encryption, no TLS needed
+4) Works on plain UDP port 3478
+
+So for STUN only you need just one port open: 3478 UDP
+The only time you need TLS/SSL for STUN is if you use stuns: (STUN over TLS) — but virtually nobody uses that. Plain stun: on UDP 3478 is the universal standard and works everywhere including from HTTPS pages, because STUN is not HTTP traffic so browser mixed-content rules don't apply to it.
+
+Summary of what needs SSL and what doesn't:
+
+
+| Protocol | Port | SSL required or not |
+|---|---|---|
+|stun:|3478 UDP|❌|
+|turn:|3478 TCP/UDP|❌ (unencrypted)|
+|turns:|5349 TCP|✅|
+|stuns:|5349|✅ (rare)|
 
 **Common use cases in Home Assistant:**
 - WebRTC camera streams (go2rtc, Frigate, HA WebRTC integration)
@@ -25,7 +45,7 @@ TURN (Traversal Using Relays around NAT) and STUN (Session Traversal Utilities f
 | `listening_port` | `3478` | TURN/STUN listening port (TCP + UDP) |
 | `tls_port` | `5349` | TLS/DTLS listening port |
 | `min_port` | `49152` | Start of relay UDP port range |
-| `max_port` | `65535` | End of relay UDP port range |
+| `max_port` | `49300` | End of relay UDP port range |
 | `realm` | `homeassistant.local` | Your domain or hostname |
 | `username` | `homeassistant` | TURN credential username |
 | `password` | `changeme` | TURN credential password — **change this!** |
@@ -36,20 +56,20 @@ TURN (Traversal Using Relays around NAT) and STUN (Session Traversal Utilities f
 | `cli_disabled` | `true` | Disable Coturn CLI interface |
 
 Please note that `use-auth-secret` (Nextcloud/REST) and `lt-cred-mech` (username/password) are mutually exclusive — coturn does not support both at the same time:
-- static_auth_secret is set → uses --use-auth-secret only (Nextcloud mode). The username/password fields are ignored.
-- static_auth_secret is empty → uses --lt-cred-mech with username/password (HA WebRTC mode).
+- `static_auth_secret` is set → uses `--use-auth-secret` only (Nextcloud mode). The username/password fields are ignored.
+- `static_auth_secret` is empty → uses `--lt-cred-mech` with username/password (HA WebRTC mode).
 
 ## Networking
 
 This add-on uses **host networking** (required for TURN servers — Docker NAT performs poorly across the large relay port range).
 
-Make sure the following are open in your router/firewall:
+Make sure the following ports are opened/duly forwarded in your router:
 
 | Port | Protocol | Purpose |
 |---|---|---|
 | `3478` | TCP + UDP | STUN/TURN |
 | `5349` | TCP + UDP | TURNS (TLS) |
-| `49152–65535` | UDP | Media relay |
+| `49152–49300` | UDP | Media relay |
 
 ## Using with Home Assistant WebRTC
 
@@ -64,23 +84,44 @@ webrtc:
       credential: changeme
 ```
 
-## Reducing the Relay Port Range
-
-If you want to open fewer firewall ports, reduce the range in the add-on config:
-
-```yaml
-min_port: 49152
-max_port: 49300
-```
-
-This limits relay connections but uses far fewer ports.
-
 ## Security Notes
 
 - Always change the default `password`.
 - If exposing to the internet, consider enabling TLS (`no_tls: false`) with a valid certificate.
 - The `realm` should match your domain for TLS setups.
 
+## Certificate Setup
+
+This add-on reads TLS certificates from `/ssl/coturn/` on your HA host. You are responsible for keeping this folder populated with valid certificates.
+
+### Tip: rclone sync from Nginx Proxy Manager
+
+If you use the NPM add-on for Let's Encrypt certificates, set up rclone to sync them hourly (for example):
+
+**Source path (NPM stores certs here):**
+```
+/addon_configs/a0d7b954_nginxproxymanager/letsencrypt/live/npm-1/
+```
+> Note: `npm-1` is the certificate ID in NPM. Check your actual path — it stays stable across renewals as long as you don't delete and recreate the certificate.
+
+**Destination path (where coturn reads from):**
+```
+/ssl/coturn/fullchain.pem
+/ssl/coturn/privkey.pem
+```
+
+**HA Automation to restart coturn after cert sync** (add to `automations.yaml`):
+```yaml
+alias: "Restart Coturn after cert sync"
+trigger:
+  - platform: time_pattern
+    hours: "/1"
+    minutes: "10"
+action:
+  - service: hassio.addon_restart
+    data:
+      addon: local_coturn
+```
 
 ## Before testing with a real domain, checklist:
 
