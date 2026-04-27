@@ -14,7 +14,7 @@ host_network: true
 map:
   - type: share
     read_only: false
-  - type: config
+  - type: homeassistant
     read_only: false
   - type: ssl
     read_only: true
