@@ -1,6 +1,6 @@
 name: "Coturn TURN Server"
 description: "A TURN/STUN server for NAT traversal, useful for WebRTC applications like Home Assistant's WebRTC camera streams."
-version: "1.0.0"
+version: "1.0.1"
 slug: "coturn"
 init: false
 homeassistant_api: false
