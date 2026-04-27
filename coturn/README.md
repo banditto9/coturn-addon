@@ -36,6 +36,8 @@ Summary of what needs SSL and what doesn't:
 4. Find **Coturn TURN Server** and click **Install**.
 
 ## Configuration
+1) via `turnserver.conf` file (please see original example for full reference - https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf) in the /config folder (in 2026 known as `homeassistant')
+2) basic options in the add-on config (and in case `turnserver.conf` is not found in the /config)
 
 | Option | Default | Description |
 |---|---|---|
