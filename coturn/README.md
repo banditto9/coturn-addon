@@ -131,6 +131,7 @@ action:
 ##  Testing using the Trickle ICE tool:
 
 Go to https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
+
 Remove the default Google STUN server
 Add your server:
 
