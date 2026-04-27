@@ -18,7 +18,7 @@ CERTFILE=$(bashio::config 'certfile')
 KEYFILE=$(bashio::config 'keyfile')
 CLI_DISABLED=$(bashio::config 'cli_disabled')
 
-CUSTOM_CONF="/config/turnserver.conf"
+CUSTOM_CONF="/homeassistant/turnserver.conf"
 
 # If a custom config file exists, use it directly and skip option-building
 if [ -f "${CUSTOM_CONF}" ]; then
