@@ -15,3 +15,9 @@ https://github.com/banditto9/coturn-addon
 | Add-on | Description |
 |--------|-------------|
 | [Coturn TURN Server](coturn/) | A TURN/STUN server for NAT traversal, useful for WebRTC and SIP applications |
+
+## Links
+Project homepage: https://coturn.github.io/
+Repository: https://github.com/coturn/coturn/
+`turnutils_uclient` for testing: https://github.com/coturn/coturn/wiki/turnutils_uclient
+Trickle ICE: https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/
