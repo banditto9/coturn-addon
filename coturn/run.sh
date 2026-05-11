@@ -16,7 +16,6 @@ NO_TLS=$(bashio::config 'no_tls')
 NO_DTLS=$(bashio::config 'no_dtls')
 CERTFILE=$(bashio::config 'certfile')
 KEYFILE=$(bashio::config 'keyfile')
-CLI_DISABLED=$(bashio::config 'cli_disabled')
 
 CUSTOM_CONF="/homeassistant/turnserver.conf"
 
@@ -82,11 +81,6 @@ else
     else
         CMD="${CMD} --no-dtls"
     fi
-fi
-
-if bashio::var.true "${CLI_DISABLED}"; then
-    CMD="${CMD} --no-cli"
-    CMD="${CMD} --cli-password=disabled"
 fi
 
 # External IP handling
