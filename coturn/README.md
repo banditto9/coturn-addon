@@ -53,7 +53,6 @@ Two options: full config via file or basic options in the add-on
 | `detect_external_ip` | `true` | Auto-detect public IP at startup |
 | `no_tls` | `true` | Disable TLS (set false if you have certs) |
 | `no_dtls` | `true` | Disable DTLS |
-| `cli_disabled` | `true` | Disable Coturn CLI interface |
 
 Please note that `use-auth-secret` (Nextcloud/REST) and `lt-cred-mech` (username/password) are mutually exclusive — coturn does not support both at the same time:
 - `static_auth_secret` is set → uses `--use-auth-secret` only (Nextcloud mode). The username/password fields are ignored.
