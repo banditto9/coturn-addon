@@ -1,14 +1,20 @@
-FROM ghcr.io/home-assistant/amd64-base:latest
+# Home Assistant Add-on base image
+FROM ghcr.io/home-assistant/amd64-base:3.23
 
-# Install coturn and dig (for external IP detection)
-RUN apk add --no-cache coturn bind-tools
+# Install Coturn and DNS utilities
+RUN apk add --no-cache \
+    coturn \
+    bind-tools
 
-# Bundle the detect-external-ip helper
+# Optional: show installed Coturn version during build
+RUN turnserver --version
+
+# Bundle external IP detection helper
 COPY detect-external-ip.sh /usr/local/bin/detect-external-ip
 RUN chmod +x /usr/local/bin/detect-external-ip
 
-# Copy the entrypoint script
+# Copy entrypoint script
 COPY run.sh /run.sh
-RUN chmod a+x /run.sh
+RUN chmod +x /run.sh
 
-CMD [ "/run.sh" ]
+CMD ["/run.sh"]
