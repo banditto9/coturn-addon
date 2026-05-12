@@ -1,5 +1,5 @@
 # Home Assistant Add-on base image
-FROM ghcr.io/home-assistant/amd64-base:4.11.0-r0-alpine
+FROM ghcr.io/home-assistant/amd64-base:3.23
 
 # Install Coturn and DNS utilities
 RUN apk add --no-cache \
