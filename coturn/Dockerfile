@@ -1,16 +1,18 @@
-# Pull coturn 4.12 binaries
 FROM ghcr.io/coturn/coturn:4.12-alpine3.23 AS coturn
 
-# Home Assistant Add-on base image
 FROM ghcr.io/home-assistant/amd64-base:3.23
 
-# Copy coturn binaries from official image
+# Copy coturn binaries only
 COPY --from=coturn /usr/bin/turnserver /usr/bin/turnserver
 COPY --from=coturn /usr/bin/turnadmin /usr/bin/turnadmin
-COPY --from=coturn /usr/lib/coturn /usr/lib/coturn
 
-# Install DNS utilities (bind-tools still from apk)
-RUN apk add --no-cache bind-tools
+# Install dependencies and DNS utilities
+RUN apk add --no-cache \
+    bind-tools \
+    libevent \
+    openssl \
+    libcrypto3 \
+    libssl3
 
 # Optional: show installed Coturn version during build
 RUN turnserver --version
