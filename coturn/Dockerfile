@@ -2,17 +2,14 @@ FROM ghcr.io/coturn/coturn:4.12-alpine3.23 AS coturn
 
 FROM ghcr.io/home-assistant/amd64-base:3.23
 
-# Copy coturn binaries only
+# Copy entire coturn installation including all libraries
 COPY --from=coturn /usr/bin/turnserver /usr/bin/turnserver
 COPY --from=coturn /usr/bin/turnadmin /usr/bin/turnadmin
+COPY --from=coturn /usr/lib/ /usr/lib/
+COPY --from=coturn /lib/ /lib/
 
-# Install dependencies and DNS utilities
-RUN apk add --no-cache \
-    bind-tools \
-    libevent \
-    openssl \
-    libcrypto3 \
-    libssl3
+# Install DNS utilities only
+RUN apk add --no-cache bind-tools
 
 # Optional: show installed Coturn version during build
 RUN turnserver --version
