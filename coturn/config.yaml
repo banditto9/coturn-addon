@@ -1,6 +1,6 @@
 name: "Coturn TURN Server"
 description: "A TURN/STUN server for NAT traversal, useful for WebRTC applications like Home Assistant's WebRTC camera streams."
-version: "1.0.4"
+version: "1.0.5"
 slug: "coturn"
 startup: "application"
 boot: "auto"
@@ -10,7 +10,7 @@ auth_api: false
 hassio_api: false
 startup: application
 
-url: "https://github.com/coturn/coturn"
+url: "https://github.com/banditto9/coturn-addon"
 
 host_network: true
 
