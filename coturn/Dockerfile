@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/amd64-base:3.23
+FROM ghcr.io/home-assistant/amd64-base:3.24
 
 RUN apk add --no-cache \
     coturn \
