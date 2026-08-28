@@ -1,4 +1,4 @@
-FROM ghcr.io/home-assistant/alpine:latest
+FROM ghcr.io/home-assistant/base:3.24
 
 LABEL \
   io.hass.version="1.0.5" \
