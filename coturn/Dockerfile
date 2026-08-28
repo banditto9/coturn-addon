@@ -1,4 +1,4 @@
-FROM ghcr.io/coturn/coturn:4.17.2-alpine3.24
+FROM ghcr.io/coturn/coturn:4.17.2-trixie
 
 LABEL \
   io.hass.version="1.0.5" \
