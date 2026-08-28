@@ -1,4 +1,4 @@
-FROM ghcr.io/coturn/coturn:4.17.2-trixie
+FROM ghcr.io/home-assistant/alpine:latest
 
 LABEL \
   io.hass.version="1.0.5" \
