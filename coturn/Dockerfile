@@ -1,5 +1,10 @@
 FROM ghcr.io/home-assistant/amd64-base:3.24
 
+LABEL \
+  io.hass.version="1.0.5" \
+  io.hass.type="app" \
+  io.hass.arch="amd64"
+
 RUN apk add --no-cache \
     coturn \
     bind-tools
