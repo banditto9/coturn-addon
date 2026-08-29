@@ -3,6 +3,8 @@
 This repository contains a Home Assistant add-on for running a 
 [Coturn](https://github.com/coturn/coturn) TURN/STUN server.
 
+**Please note that Home Assistant always installs whatever is on the main branch. "Releases" are for a history of tagged, known-working states.**
+
 ## Installation
 
 1. Go to **Settings → Add-ons → Add-on Store → ⋮ → Repositories**
