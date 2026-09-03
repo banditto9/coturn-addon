@@ -1,5 +1,12 @@
 #!/usr/bin/with-contenv bashio
 
+bashio::log.info "=============================================================================="
+bashio::log.info "Environment information:"
+bashio::log.info "  Coturn: ${WALLABAG_VERSION:-unknown}"
+bashio::log.info "  OS: $(. /etc/os-release && echo "${PRETTY_NAME:-unknown}")"
+bashio::log.info "  Base image: ${BASE_IMAGE:-unknown}"
+bashio::log.info "=============================================================================="
+
 # Read config values from Home Assistant add-on options
 LISTENING_PORT=$(bashio::config 'listening_port')
 TLS_PORT=$(bashio::config 'tls_port')
