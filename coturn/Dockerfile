@@ -12,8 +12,6 @@ RUN apk add --no-cache \
     coturn \
     bind-tools
 
-RUN turnserver --version
-
 COPY detect-external-ip.sh /usr/local/bin/detect-external-ip
 RUN chmod +x /usr/local/bin/detect-external-ip
 
