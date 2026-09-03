@@ -2,7 +2,7 @@
 
 bashio::log.info "=============================================================================="
 bashio::log.info "Environment information:"
-bashio::log.info "  Coturn: $(coturn --version 2>&1)"
+bashio::log.info "  Coturn: $(turnserver -v 2>&1)"
 bashio::log.info "  OS: $(. /etc/os-release && echo "${PRETTY_NAME:-unknown}")"
 bashio::log.info "  Base image: ${BASE_IMAGE:-unknown}"
 bashio::log.info "=============================================================================="
